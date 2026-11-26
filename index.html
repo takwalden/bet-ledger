@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://dhgkixdfcqbrprybgrwf.supabase.co; object-src 'none'; base-uri 'none'; form-action 'self'">
+<title>Bet Ledger</title>
+<link rel="stylesheet" href="./style.css">
+<script type="module" src="./app.mjs"></script>
+</head>
+<body>
+<header class="top"><div class="shell bar"><a href="./" class="brand"><span class="mark" aria-hidden="true">▥</span>Bet Ledger</a>
+<nav id="account" aria-label="Account" hidden><button id="sync">Sync</button><button id="settings">Settings</button><button id="logout">Sign out</button></nav></div></header>
+<main class="shell">
+<p id="notice" class="notice" role="status" aria-live="polite" hidden></p>
+<section id="login" class="panel login" hidden>
+<h1>Sign in</h1><p>Access your private wager history and settings.</p>
+<form id="login-form"><label>Email<input type="email" name="email" autocomplete="username" required></label>
+<label>Password<input type="password" name="password" autocomplete="current-password" required></label>
+<button class="primary" type="submit">Sign in</button><p class="error" role="alert" hidden></p></form>
+</section>
+<div id="dashboard" hidden>
+<div class="page-heading"><div><h1>Dashboard</h1><p id="sync-status" aria-live="polite"></p></div><button id="new-bet" class="primary">＋ Add Bet</button></div>
+<section id="metrics" class="metrics" aria-label="Filtered performance"></section>
+<div class="workspace">
+<section class="panel history" aria-labelledby="history-title">
+<div class="panel-head"><h2 id="history-title">Historical records</h2><div class="actions"><button id="import">Import</button><button id="export">Export</button></div></div>
+<div id="filters"></div>
+<div class="history-meta"><span id="record-count" aria-live="polite"></span><button id="reset">Clear filters</button></div>
+<div id="history"></div>
+</section>
+<aside class="sidebar">
+<section class="panel" aria-labelledby="calendar-title">
+<div class="panel-head"><h2 id="calendar-title">Calendar</h2><div class="actions"><button id="previous" aria-label="Previous month">‹</button><button id="next" aria-label="Next month">›</button></div></div>
+<h3 id="month"></h3><div id="calendar" class="calendar"></div><div id="month-summary" class="month-summary"></div>
+<p class="legend"><span class="gain">● Profit</span><span class="loss">● Loss</span><span class="pending">● Pending</span></p>
+</section>
+<section class="panel" aria-labelledby="bank-title"><div class="panel-head"><h2 id="bank-title">Bankroll</h2><button id="new-transaction">Add activity</button></div>
+<div id="bankroll"></div><details><summary>Transaction history</summary><div id="transactions"></div></details></section>
+</aside>
+</div>
+<section class="panel chart-panel"><h2>Cumulative P&amp;L</h2><div id="chart"></div></section>
+</div>
+</main>
+<dialog id="editor"><form id="editor-form"><div class="panel-head"><h2 id="editor-title">Add Bet</h2><button type="button" data-close aria-label="Close">×</button></div>
+<div id="fields" class="fields"></div><output id="estimate"></output><p class="error" role="alert" hidden></p>
+<footer><button type="button" data-close>Cancel</button><button class="primary" type="submit">Save</button></footer></form></dialog>
+<dialog id="preferences"><form id="preferences-form"><div class="panel-head"><h2>Settings</h2><button type="button" data-close aria-label="Close">×</button></div>
+<p>Edit lists one item per line. Changes apply to new selections. Existing records retain their saved names.</p>
+<div class="fields"><label>Sources<textarea name="sources" rows="6"></textarea></label><label>Bookmakers<textarea name="books" rows="6"></textarea></label>
+<label>Default bookmaker<select name="defaultBook"></select></label><label>Markets by league<select name="league"></select></label>
+<label class="wide">Markets<textarea name="markets" rows="6"></textarea></label></div>
+<p class="error" role="alert" hidden></p><footer><button type="button" id="defaults">Restore default lists</button><button type="submit" class="primary">Save settings</button></footer></form></dialog>
+<dialog id="csv"><form id="csv-form"><div class="panel-head"><h2>Import CSV</h2><button type="button" data-close aria-label="Close">×</button></div>
+<p>Choose a Bet Ledger CSV. Import creates new records and skips exact matches.</p>
+<label>CSV file<input type="file" name="file" accept=".csv,text/csv" required></label>
+<p><a href="./sample.csv" download>Download sample CSV</a></p><p id="import-summary" aria-live="polite"></p><div id="import-errors"></div>
+<p class="error" role="alert" hidden></p><footer><button type="button" data-close>Cancel</button><button type="submit" class="primary" disabled>Import records</button></footer></form></dialog>
+<dialog id="delete-dialog"><form id="delete-form"><div class="panel-head"><h2>Delete record?</h2><button type="button" data-close aria-label="Close">×</button></div>
+<p id="delete-name"></p><p class="error" role="alert" hidden></p>
+<footer><button type="button" data-close autofocus>Cancel</button><button class="danger" type="submit">Delete record</button></footer></form></dialog>
+</body>
+</html>
